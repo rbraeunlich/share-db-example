@@ -43,10 +43,7 @@ function updateUIForJson(id) {
 		if(jsons[i].id === id){	
 	        var jsonDiv = $("#" + maskTheDot(id));
 	        jsonDiv.empty();
-	        jsonDiv.append("Json data type with id " + id);
-	        jsonDiv.append("<div>");
 	        jsonDiv.append(JSON.stringify(jsons[i].data));
-	        jsonDiv.append("</div>");
 		}
 	};
 }
@@ -54,16 +51,17 @@ function updateUIForJson(id) {
 function insertJsonManipulationElements(id) {
     var divElement = $("body").append("<div id=\"head"+id+"\">");
     divElement.append("<p>");
-    divElement.append("<button id=\"insertJson"+id+"\" onclick=\"insertToJson('"+ id + "')\">Insert</button>");
-    divElement.append("<input id=\"inputJson"+id+"\" type=\"text\"/>");
+    divElement.append("<button id=\"insertJson"+id+"\" class=\"insertButton\" onclick=\"insertToJson('"+ id + "')\">Insert</button>");
+    divElement.append("<input id=\"inputJson"+id+"\" class=\"inputJson\" type=\"text\"/>");
     divElement.append("</br>");
     divElement.append("<button id=\"deleteJson"+id+"\" onclick=\"deleteFromJson('"+ id + "')\">Delete</button>");
     divElement.append("</br>");
     divElement.append("<button id=\"replaceJson"+id+"\" onclick=\"replaceInJson('"+ id + "')\">Replace</button>");
     divElement.append("</br>");
-    divElement.append("Path<input id=\"pathJson"+id+"\" type=\"text\"/>");
+    divElement.append("Path<input id=\"pathJson"+id+"\" class=\"pathJson\" type=\"text\"/>");
     divElement.append("</p>");
     $("body").append("</div>");
+    $("body").append("Json data type with id " + id);
     $("body").append("<div id=\""+id+"\" class=\"jsonObject\">");
     $("body").append("</div>");
 }
