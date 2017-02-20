@@ -8,10 +8,10 @@ var connection = new sharedb.Connection(socket);
 var jsons = []
 
 function newJson() {
-	var json = connection.get('examples', 'id' + Math.random().toString());
+	var json = connection.get('examples', Math.random().toString());
   json.create({});
   jsons.push(json);
-	insertJsonManipulationElements(json.id)
+	insertJsonManipulationElements(json.id);
   var callback = (function() {
     var id = json.id;
     return function(err){
@@ -20,6 +20,22 @@ function newJson() {
   })();
 	json.subscribe(callback);
 	json.on('op', callback);
+}
+
+function subscribe() {
+  var subscribeInput = $("#subscribe-id");
+  var jsonId = subscribeInput.val();
+  var json = connection.get('examples', jsonId);
+  insertJsonManipulationElements(json.id);
+  jsons.push(json);
+  var callback = (function() {
+    var id = json.id;
+    return function(err){
+      updateUIForJson(id);
+    }
+  })();
+  json.subscribe(callback);
+  json.on('op', callback);
 }
 
 function updateUIForJson(id) {
@@ -79,14 +95,6 @@ function replaceInJson(id) {
     		}
 	}
 }
-// When clicking on the '+1' button, change the number in the local
-// document and sync the change to the server and other connected
-// clients
-function increment() {
-  // Increment `doc.data.numClicks`. See
-  // https://github.com/ottypes/json0 for list of valid operations.
-  doc.submitOp([{p: ['numClicks'], na: 1}]);
-}
 
 function maskTheDot(id) {
   return id.replace(".", "\\.");
@@ -97,3 +105,4 @@ global.newJson = newJson;
 global.insertToJson = insertToJson;
 global.deleteFromJson = deleteFromJson;
 global.replaceInJson = replaceInJson;
+global.subscribe = subscribe;
