@@ -64,7 +64,7 @@ function insertJsonManipulationElements(id) {
     divElement.append("Path<input id=\"pathJson"+id+"\" type=\"text\"/>");
     divElement.append("</p>");
     $("body").append("</div>");
-    $("body").append("<div id=\""+id+"\">");
+    $("body").append("<div id=\""+id+"\" class=\"jsonObject\">");
     $("body").append("</div>");
 }
 
