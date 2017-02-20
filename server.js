@@ -3,8 +3,8 @@ var express = require('express');
 var ShareDB = require('sharedb');
 var WebSocket = require('ws');
 var WebSocketJSONStream = require('websocket-json-stream');
-
-var backend = new ShareDB();
+var db = require('sharedb-mongo')('mongodb://localhost:27017/sharedb');
+var backend = new ShareDB({db});
 //createDoc(startServer);
 startServer();
 
